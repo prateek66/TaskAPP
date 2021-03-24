@@ -54,7 +54,7 @@ app.options('*', cors(corsOptions));
  */
 
 
-app.use("/", TaskRouter);
+app.use("/", cors(corsOptions),TaskRouter);
 //app.use('/category',vechileRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
