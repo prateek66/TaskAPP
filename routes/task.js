@@ -6,5 +6,6 @@ const router = express.Router();
 router.post('/create', TaskContoller.create);
 router.get('/view/:_id',TaskContoller.GetTask);
 router.get('/changeStatus/:_id',TaskContoller.changeStatus);
+router.get('/viewall',TaskContoller.getalltask);
 
 module.exports = router;
