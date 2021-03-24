@@ -30,7 +30,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
- require("./middeleware/cros")(app);
+ //require("./middeleware/cros")(app);
 
 
 //Reflect the origin if it's in the allowed list or not defined (cURL, Postman, etc.)
