@@ -30,22 +30,25 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-// require("./middeleware/cros")(app);
+ require("./middeleware/cros")(app);
 
 
 //Reflect the origin if it's in the allowed list or not defined (cURL, Postman, etc.)
-const corsOptions = {
-  origin: (origin, callback) => {
-    if (allowedOrigins.includes(origin) || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error('Origin not allowed by CORS'));
-    }
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  if (req.method === 'OPTIONS') {
+      res.header('Access-Control-Allow-Methods', 'OPTIONS, PUT, POST, PATCH, DELETE, GET');
+      return res.status(200).json({});
   }
-}
+  next();
+});
 
 // Enable preflight requests for all routes
-app.options('*', cors(corsOptions));
+
 
 
 
@@ -54,7 +57,7 @@ app.options('*', cors(corsOptions));
  */
 
 
-app.use("/", cors(corsOptions),TaskRouter);
+app.use("/",TaskRouter);
 //app.use('/category',vechileRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
