@@ -68,4 +68,20 @@ exports.changeStatus = async(req,res) => {
     response.data = Status
     res.status(200).send(response)
     }
-}
+};
+
+exports.getalltask = async (req, res, next) => {
+    try {
+      const alltask = await Task.find({});
+  
+      if (!alltask) {
+        res.status(400).send("something went wrong");
+      }
+      res.status(200).json({
+        status: "success",
+        alltask,
+      });
+    } catch (e) {
+      res.status(400).send(e);
+    }
+  };
