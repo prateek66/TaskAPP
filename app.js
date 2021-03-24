@@ -6,9 +6,18 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const fs = require("fs");
-const { request } = require("http");
 require("./db/mongoose");
  
+const allowedOrigins = [
+  'capacitor://localhost',
+  'ionic://localhost',
+  'http://localhost',
+  'http://localhost:8080',
+  'http://localhost:8100',
+  'http://localhost:3000/'
+  
+];
+
 
 //routes
 const TaskRouter = require("./routes/task");
@@ -24,7 +33,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // require("./middeleware/cros")(app);
 
 
-// Reflect the origin if it's in the allowed list or not defined (cURL, Postman, etc.)
+//Reflect the origin if it's in the allowed list or not defined (cURL, Postman, etc.)
 const corsOptions = {
   origin: (origin, callback) => {
     if (allowedOrigins.includes(origin) || !origin) {
