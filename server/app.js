@@ -29,7 +29,8 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public/index.html")));
+//app.use(express.static(path.join(__dirname, "public/index.html")));
+app.use(express.static("client/build"));
  //require("./middeleware/cros")(app);
 
 
@@ -63,6 +64,8 @@ app.use("/",TaskRouter);
 app.use(function (req, res, next) {
   next(createError(404));
 });
+
+
 
 // error handler
 app.use(function (err, req, res, next) {
