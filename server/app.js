@@ -7,6 +7,7 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const fs = require("fs");
 require("./db/mongoose");
+require("dotenv").config();
  
 const allowedOrigins = [
   'capacitor://localhost',
@@ -29,8 +30,7 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-//app.use(express.static(path.join(__dirname, "public/index.html")));
-app.use(express.static("client/build"));
+app.use(express.static(path.join(__dirname, "public/index.html")));
  //require("./middeleware/cros")(app);
 
 
@@ -49,7 +49,9 @@ app.use((req, res, next) => {
 });
 
 // Enable preflight requests for all routes
-
+if(process.env.NODE_ENV === "production"){
+  app.use(express.static("client/build"));
+}
 
 
 
